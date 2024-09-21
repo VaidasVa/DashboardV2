@@ -1,6 +1,7 @@
 body {
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
-
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(9, 121, 121, 1) 35%, rgba(0, 212, 255, 0) 100%);
 }
