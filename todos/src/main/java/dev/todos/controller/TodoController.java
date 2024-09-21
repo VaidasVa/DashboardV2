@@ -3,10 +3,8 @@ package dev.todos.controller;
 import dev.todos.model.Todo;
 import dev.todos.service.TodoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +13,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TodoController {
 
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService = new TodoService();
 
     @GetMapping("/")
-    public List<Todo> getTodos() {
-        return todoService.getAllTodos();
+    public ResponseEntity<List<Todo>> getTodos() {
+        return ResponseEntity.ok().body(todoService.getAllTodos());
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<String> createTodo(@RequestBody Todo todo) {
+        todoService.addTodo(todo);
+        return ResponseEntity.ok("Todo created");
     }
 
 }
