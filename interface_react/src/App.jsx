@@ -9,16 +9,22 @@ import LanguageIcon from "@mui/icons-material/Language";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import {CalendarMonth, EventNote, Feed, WbSunny} from "@mui/icons-material";
 import TabPanel from "@mui/lab/TabPanel";
-import Test from "./components/Test.jsx";
+import Links from "./components/Links.jsx";
+import Main from "./components/Main.jsx";
+import Todos from "./components/Todos.jsx";
+import Notes from "./components/Notes.jsx";
+import News from "./components/News.jsx";
+import Weather from "./components/Weather.jsx";
+import Calendar from "./components/Calendar.jsx";
 
 
 function App() {
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = React.useState("dashboard");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    // const secondary = red[500]; // #f44336
+
 
     return (
         <React.Fragment>
@@ -40,13 +46,13 @@ function App() {
                             <Tab icon={<CalendarMonth/>} aria-label="calendar" value="calendar"/>
                         </TabList>
                     </Box>
-                    <TabPanel value="dashboard"><Test/></TabPanel>
-                    <TabPanel value="links"><Test/></TabPanel>
-                    <TabPanel value="todos"><Test/></TabPanel>
-                    <TabPanel value="notes"><Test/></TabPanel>
-                    <TabPanel value="news"><Test/></TabPanel>
-                    <TabPanel value="weather"><Test/></TabPanel>
-                    <TabPanel value="calendar"><Test/></TabPanel>
+                    <TabPanel value="dashboard"><Main/></TabPanel>
+                    <TabPanel value="links"><Links/></TabPanel>
+                    <TabPanel value="todos"><Todos/></TabPanel>
+                    <TabPanel value="notes"><Notes/></TabPanel>
+                    <TabPanel value="news"><News/></TabPanel>
+                    <TabPanel value="weather"><Weather/></TabPanel>
+                    <TabPanel value="calendar"><Calendar/></TabPanel>
 
                 </TabContext>
 
