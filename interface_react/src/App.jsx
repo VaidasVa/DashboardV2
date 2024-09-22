@@ -2,7 +2,6 @@ import './App.css'
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
 import Tab from "@mui/material/Tab";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -16,6 +15,7 @@ import Notes from "./components/Notes.jsx";
 import News from "./components/News.jsx";
 import Weather from "./components/Weather.jsx";
 import Calendar from "./components/Calendar.jsx";
+import {TabList} from "@mui/lab";
 
 
 function App() {
@@ -28,24 +28,21 @@ function App() {
 
     return (
         <React.Fragment>
-            <Box sx={{width: '100%', typography: 'body1'}}>
-                <TabContext value={value}>
+            <Box sx={{maxWidth: '100%', typography: 'body1'}}>
+                <TabContext value={value} style={{width: "13%"}}>
                     <Box sx={{
                         borderBottom: 1, borderColor: 'rgba(103,163,163,0.1)'
                     }}>
                         <TabList onChange={handleChange}
-                                 textColor="white"
+                                 color="white"
                                  indicatorColor="white"
                                  aria-label="lab label API tabs example"
                                  centered
                                  sx={{
                                      backgroundColor: 'transparent'
-                                 }}
-                        >
+                                 }}>
                             <Tab icon={<DashboardIcon/>} aria-label="dashboard" value="dashboard"
                                  sx={{
-                                     padding: 0,
-                                     margin: 0,
                                      backgroundColor: value === "dashboard" ? "rgb(103,163,163)" : "transparent",
                                      color: value === "dashboard" ? "white" : "rgb(103,163,163)"
                                  }}/>

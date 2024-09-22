@@ -1,7 +1,13 @@
+import sharedStyles from "./CSS/shared.module.css"
+
 export default function Links() {
     return (
         <>
-            Links page
+            <div className={sharedStyles.banner}>Links</div>
+            <div className={sharedStyles.container}>
+                Links page
+            </div>
+
         </>
     )
 }
