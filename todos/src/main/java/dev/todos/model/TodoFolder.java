@@ -12,6 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TodoFolder {
     private UUID folderId;
-    private List<Todo> todoFolder;
+    private String folderName;
     private boolean deleted;
+    // add something to indicate connected Todo's
+    private UUID userId;
 }

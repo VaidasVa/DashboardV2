@@ -18,10 +18,12 @@
         <option value="$PROJECT_DIR$/calendar/pom.xml" />
         <option value="$PROJECT_DIR$/user/pom.xml" />
         <option value="$PROJECT_DIR$/links/pom.xml" />
+        <option value="$PROJECT_DIR$/cloudConfig/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/cloudConfig/pom.xml" />
         <option value="$PROJECT_DIR$/links/pom.xml" />
       </set>
     </option>

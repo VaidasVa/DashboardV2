@@ -1,10 +1,12 @@
 package dev.todos.repository;
 
+import dev.todos.repository.dao.TodoDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface TodosRepository extends JpaRepository<TodoDAO, UUID> {
+public interface TodoRepository extends JpaRepository<TodoDAO, UUID> {
+
 }

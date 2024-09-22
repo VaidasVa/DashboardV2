@@ -1,4 +1,4 @@
-package dev.todos.repository;
+package dev.todos.repository.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -8,10 +8,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-@Table
-@Entity(name = "todo")
+@Table(name = "todos")
+@Entity
 @Data
 @Setter
 @Getter
@@ -26,7 +28,8 @@ public class TodoDAO {
     private UUID noteId;
 
     @Column
-    private String title;
+    @NonNull
+    private String todoName;
 
     @JsonIgnore
     @Column
@@ -44,11 +47,19 @@ public class TodoDAO {
     @JsonIgnore
     private LocalDateTime deletedAt;
 
+    @Column(name = "user_id")
     @JsonIgnore
     private UUID userID;
 
     @JsonIgnore
-    private UUID folderId;
+    @ManyToOne
+    @JoinColumn(name = "parent_folder_id")
+    private TodoFolderDAO parentFolder;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "parentTodo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TodoSubtaskDAO> subtasks = new ArrayList<>();
+
 
 
     @PrePersist

@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TodoController {
 
-    private final TodoService todoService = new TodoService();
+    private final TodoService todoService;
 
     @GetMapping("/")
     public ResponseEntity<List<Todo>> getTodos() {

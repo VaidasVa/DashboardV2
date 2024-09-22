@@ -12,13 +12,14 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Todo {
-    private UUID noteId;
-    private String todoName;
+public class TodoSubtask {
+
+    private UUID subtaskId;
+    private String subtaskName;
+    private UUID parentTodo;
     private boolean completed;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    private UUID userID;
-    private UUID parentFolderId;
+    private UUID userId;
 }
