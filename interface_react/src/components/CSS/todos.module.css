@@ -1,0 +1,5 @@
+.accordion {
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    gap: 10px; /* Optional: Adds space between accordions */
+}
