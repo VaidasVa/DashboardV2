@@ -1,11 +1,9 @@
 package dev.todos.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -13,12 +11,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Todo {
-    private UUID noteId;
+    private String noteId;
     private String todoName;
     private boolean completed;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    private UUID userID;
-    private UUID parentFolderId;
+    private List<Subtask> subtasks;
 }

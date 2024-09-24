@@ -15,25 +15,22 @@ import java.util.UUID;
 @Table(name = "todos")
 @Entity
 @Data
-@Setter
-@Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TodoDAO {
 
     @Id
     @UuidGenerator
-    @JsonIgnore
-    private UUID noteId;
+    @Column(name= "note_id", nullable = false, updatable = false, unique = true,
+    length = 36, columnDefinition = "VARCHAR(36)")
+    private String noteId;
 
-    @Column
-    @NonNull
+    @Column(nullable = false)
     private String todoName;
 
     @JsonIgnore
     @Column
-    private boolean completed;
+    private boolean completed = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -42,28 +39,11 @@ public class TodoDAO {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    private LocalDateTime completedAt;
+    private LocalDateTime completedAt = null;
 
     @JsonIgnore
-    private LocalDateTime deletedAt;
+    private LocalDateTime deletedAt = null;
 
-    @Column(name = "user_id")
-    @JsonIgnore
-    private UUID userID;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "parent_folder_id")
-    private TodoFolderDAO parentFolder;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "parentTodo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<TodoSubtaskDAO> subtasks = new ArrayList<>();
-
-
-
-    @PrePersist
-    public void prePersist() {
-        completed = false;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<SubtaskDAO> subtasks = new ArrayList<>();
 }

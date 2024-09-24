@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface TodoRepository extends JpaRepository<TodoDAO, UUID> {
+public interface TodoRepository extends JpaRepository<TodoDAO, String> {
 
 }
