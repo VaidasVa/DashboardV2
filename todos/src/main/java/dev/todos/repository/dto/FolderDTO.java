@@ -1,36 +1,32 @@
-package dev.todos.repository.dao;
+package dev.todos.repository.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Table(name = "todos")
+@Table(name = "folders")
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoDAO {
+public class FolderDTO {
 
     @Id
     @UuidGenerator
-    @Column(name= "note_id", nullable = false, updatable = false, unique = true,
+    @Column(name= "folder_id", nullable = false, updatable = false, unique = true,
     length = 36, columnDefinition = "VARCHAR(36)")
-    private String noteId;
+    private String folderId;
 
     @Column(nullable = false)
-    private String todoName;
-
-    @JsonIgnore
-    @Column
-    private boolean completed = false;
+    private String folderName;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -39,11 +35,9 @@ public class TodoDAO {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    private LocalDateTime completedAt = null;
-
-    @JsonIgnore
     private LocalDateTime deletedAt = null;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<SubtaskDAO> subtasks = new ArrayList<>();
+    @JoinColumn(name = "folder_id")
+    private List<TodoDTO> todos;
 }

@@ -1,19 +1,16 @@
-package dev.todos.repository.dao;
+package dev.todos.repository.dto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.util.Random;
 
 @Table(name = "subtasks")
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubtaskDAO {
+public class SubtaskDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,21 +1,23 @@
 package dev.todos.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Todo {
-    private String todoId;
-    private String todoName;
-    private boolean completed;
+public class Folder {
+
+    private String folderId;
+    private String folderName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    private List<Subtask> subtasks;
+    private List<Todo> todos;
 }

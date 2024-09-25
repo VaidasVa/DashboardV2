@@ -1,5 +1,32 @@
-.accordion {
-    display: flex;
-    flex-direction: column; /* Ensure items stack vertically */
-    gap: 10px; /* Optional: Adds space between accordions */
+.todoList {
+}
+
+.subtask, .ListItem{
+    padding-left: 50px;
+    margin-left: 50px;
+}
+
+.addSubtaskButton{
+    padding-left: 50px;
+    margin-left: 50px;
+
+}
+.MuiButtonBase-root{
+    background-color: rgba(9, 121, 121, 1);
+}
+
+.speedButton > .MuiButtonBase-root.MuiFab-root.MuiFab-circular.MuiFab-primary{
+    background-color: transparent;
+}
+
+.secondaryAction > SpeedDial {
+    flex-grow: 1;
+}
+
+.ListItemText{
+    margin-top: 80px;
+}
+
+.li {
+    margin: 0;
 }
