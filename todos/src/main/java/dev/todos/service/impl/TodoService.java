@@ -24,7 +24,7 @@ public class TodoService implements dev.todos.service.Service<Todo, String> {
         this.folderRepository = folderRepository;
     }
 
-    public void saveToFolder(Todo todo, String folderId) {
+    public void addTodo(Todo todo, String folderId) {
         FolderDTO folderDTO = folderRepository.findById(folderId).orElse(null);
         TodoDTO todoDTO = mapper.map(todo, TodoDTO.class);
         folderDTO.getTodos().add(todoDTO);
@@ -44,13 +44,13 @@ public class TodoService implements dev.todos.service.Service<Todo, String> {
 
     @Override
     public Optional<Todo> update(String s, Todo todo) {
-        Optional<TodoDTO> todoDTO = repository.findById(s);
-        if (todoDTO.isPresent()) {
-//            todoDTO.get().setTodoName(todo.getTodoName());
-            repository.save(todoDTO.get());
-            return Optional.of(mapper.map(repository.findById(s).get(), Todo.class));
-        } else {return Optional.empty();
-        }
+        return repository.findById(s)
+                .map(dto -> {
+                    dto.setTodoName(todo.getTodoName());
+                    repository.save(dto);
+                    return Optional.of(mapper.map(repository.findById(s).get(), Todo.class));
+                })
+                .orElse(Optional.empty());
     }
 
     @Override

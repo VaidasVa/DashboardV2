@@ -3,6 +3,7 @@ package dev.todos.controller.impl;
 import dev.todos.controller.Controller;
 import dev.todos.model.Subtask;
 import dev.todos.service.impl.SubtaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,22 +27,32 @@ public class SubtaskController implements Controller<Subtask, Long> {
     }
 
     @Override
-    public ResponseEntity<Subtask> getById(Long aLong) {
-        return null;
+    @GetMapping("/{id}")
+    public ResponseEntity<Subtask> getById(@PathVariable Long id) {
+        return service.getById(id).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<List<Subtask>> getAll() {
-        return null;
+        return ResponseEntity.ok(service.getAll());
     }
 
     @Override
-    public ResponseEntity<Optional<Subtask>> update(Long aLong, Subtask subtask) {
-        return null;
+    @PutMapping("/{id}")
+    public ResponseEntity<Optional<Subtask>> update(@PathVariable Long id, @RequestBody Subtask subtask) {
+        Optional<Subtask> response = service.update(id, subtask);
+        if (response.isPresent()) {
+            return ResponseEntity.ok(response);
+        } else return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<String> delete(Long aLong) {
-        return null;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        return service.delete(id) ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.notFound().build();
     }
 }

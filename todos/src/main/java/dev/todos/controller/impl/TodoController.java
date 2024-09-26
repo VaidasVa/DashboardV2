@@ -22,7 +22,7 @@ public class TodoController implements Controller<Todo, String> {
 
     @PostMapping("/{folderId}")
     public ResponseEntity<Todo> create(@RequestBody Todo todo, @PathVariable String folderId) {
-        service.saveToFolder(todo, folderId);
+        service.addTodo(todo, folderId);
         return null;
     }
 

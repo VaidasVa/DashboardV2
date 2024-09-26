@@ -22,7 +22,7 @@ public class FolderController implements Controller<Folder, String> {
 
     @PostMapping
     public ResponseEntity<Folder> create(@RequestBody Folder folder) {
-        Folder savedFolder = folderService.save(folder);
+        Folder savedFolder = folderService.add(folder);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFolder);
     }
 
@@ -36,14 +36,9 @@ public class FolderController implements Controller<Folder, String> {
     }
 
     @Override
-    @GetMapping("/")
-    public ResponseEntity<List<Folder>> getAll(){
-        return null;
-    }
-
     @GetMapping
-    public ResponseEntity<List<Folder>> getAllA() {
-        return ResponseEntity.ok().body(folderService.getAllA());
+    public ResponseEntity<List<Folder>> getAll() {
+        return ResponseEntity.ok().body(folderService.getAll());
     }
 
     @Override
@@ -54,7 +49,6 @@ public class FolderController implements Controller<Folder, String> {
             return ResponseEntity.ok().body(folderDto);
         } else return ResponseEntity.notFound().build();
     }
-
 
     @Override
     @DeleteMapping("/{folderId}")

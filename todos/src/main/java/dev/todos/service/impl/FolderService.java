@@ -20,13 +20,14 @@ public class FolderService implements Service<Folder, String> {
         this.repository = repository;
     }
 
-    public Folder save(Folder folder) {
+    public Folder add(Folder folder) {
         FolderDTO folderDTO = mapper.map(folder, FolderDTO.class);
         repository.save(folderDTO);
         return mapper.map(repository.findByFolderName(folder.getFolderName()).get(), Folder.class);
     }
 
-    public List<Folder> getAllA() {
+    @Override
+    public List<Folder> getAll() {
         List<FolderDTO> dtos = repository.findAll();
         List<Folder> limitedTodos = new ArrayList<>();
         for (FolderDTO dto : dtos) {
@@ -37,11 +38,6 @@ public class FolderService implements Service<Folder, String> {
     }
 
     @Override
-    public List<Folder> getAll() {
-        return List.of();
-    }
-
-    @Override
     public Optional<Folder> getById(String s) {
         Optional<FolderDTO> dto = repository.findById(s);
         return dto.map(folderDTO -> mapper.map(folderDTO, Folder.class));
@@ -49,8 +45,13 @@ public class FolderService implements Service<Folder, String> {
 
     @Override
     public Optional<Folder> update(String s, Folder folder) {
-        Optional<FolderDTO> dto = repository.findById(s);
-        return dto.map(folderDTO -> mapper.map(folderDTO, Folder.class));
+        return repository.findById(s)
+                .map(dto -> {
+                    dto.setFolderName(folder.getFolderName());
+                    repository.save(dto);
+                    return Optional.of(mapper.map(repository.findById(s).get(), Folder.class));
+                })
+                .orElse(Optional.empty());
     }
 
     @Override

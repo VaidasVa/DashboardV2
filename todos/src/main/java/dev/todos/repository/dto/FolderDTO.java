@@ -2,6 +2,7 @@ package dev.todos.repository.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,9 +43,8 @@ public class FolderDTO {
     @JsonIgnore
     private LocalDateTime deletedAt = null;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name = "folder_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<TodoDTO> todos = new ArrayList<>();
 }

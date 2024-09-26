@@ -2,6 +2,7 @@ package dev.todos.repository.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.*;
@@ -43,9 +44,8 @@ public class TodoDTO {
     @JsonIgnore
     private LocalDateTime deletedAt = null;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "todo_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<SubtaskDTO> subtasks = new ArrayList<>();
 }
