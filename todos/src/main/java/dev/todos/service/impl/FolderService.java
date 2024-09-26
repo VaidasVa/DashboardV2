@@ -6,9 +6,9 @@ import dev.todos.repository.dto.FolderDTO;
 import dev.todos.service.Service;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Service
 public class FolderService implements Service<Folder, String> {
@@ -20,18 +20,25 @@ public class FolderService implements Service<Folder, String> {
         this.repository = repository;
     }
 
-    @Override
     public Folder save(Folder folder) {
-        repository.save(mapper.map(folder, FolderDTO.class));
+        FolderDTO folderDTO = mapper.map(folder, FolderDTO.class);
+        repository.save(folderDTO);
         return mapper.map(repository.findByFolderName(folder.getFolderName()).get(), Folder.class);
+    }
+
+    public List<Folder> getAllA() {
+        List<FolderDTO> dtos = repository.findAll();
+        List<Folder> limitedTodos = new ArrayList<>();
+        for (FolderDTO dto : dtos) {
+            Folder folder = mapper.map(dto, Folder.class);
+            limitedTodos.add(folder);
+        }
+        return limitedTodos;
     }
 
     @Override
     public List<Folder> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(item -> mapper.map(item, Folder.class))
-                .collect(Collectors.toList());
+        return List.of();
     }
 
     @Override
@@ -43,11 +50,7 @@ public class FolderService implements Service<Folder, String> {
     @Override
     public Optional<Folder> update(String s, Folder folder) {
         Optional<FolderDTO> dto = repository.findById(s);
-        if (dto.isPresent()) {
-            dto.get().setFolderName(folder.getFolderName());
-            repository.save(dto.get());
-        }
-        return Optional.of(mapper.map(repository.findById(s).get(), Folder.class));
+        return dto.map(folderDTO -> mapper.map(folderDTO, Folder.class));
     }
 
     @Override

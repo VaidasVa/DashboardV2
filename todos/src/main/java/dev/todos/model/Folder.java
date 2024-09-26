@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Folder {
 
-    private String folderId;
+    private String id;
     private String folderName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

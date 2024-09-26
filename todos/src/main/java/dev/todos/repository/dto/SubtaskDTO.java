@@ -19,4 +19,7 @@ public class SubtaskDTO {
 
     @Column
     private String title;
+
+    @Column
+    private boolean completed = false;
 }

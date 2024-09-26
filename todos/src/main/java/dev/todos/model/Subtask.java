@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class Subtask {
     private String subtaskId;
     private String title;
+    private boolean completed;
 }

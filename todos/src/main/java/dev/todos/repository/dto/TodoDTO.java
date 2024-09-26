@@ -2,10 +2,9 @@ package dev.todos.repository.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,17 +13,18 @@ import java.util.List;
 @Table(name = "todos")
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TodoDTO {
 
     @Id
     @UuidGenerator
-    @Column(name= "note_id", nullable = false, updatable = false, unique = true,
+    @Column(nullable = false, updatable = false, unique = true,
     length = 36, columnDefinition = "VARCHAR(36)")
-    private String todoId;
+    private String id;
 
-    @Column(nullable = false)
+    @Column
     private String todoName;
 
     @JsonIgnore
@@ -43,10 +43,9 @@ public class TodoDTO {
     @JsonIgnore
     private LocalDateTime deletedAt = null;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "todo_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<SubtaskDTO> subtasks = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "folder_id")
-    private FolderDTO folder;
 }
